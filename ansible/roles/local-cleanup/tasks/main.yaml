@@ -1,0 +1,10 @@
+---
+- name: Clean K8s yaml files
+  file:
+    state: absent
+    path: /tmp/k8s-install/
+
+- name: Delete Join tempfile
+  file:
+    path: /tmp/join.sh
+    state: absent

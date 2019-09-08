@@ -1,0 +1,48 @@
+---
+- name: Configure Floating IPs and install gobetween for IPv6 to IPv4 translation
+  hosts: allserver
+  gather_facts: yes
+  remote_user: k8s
+  become: yes
+  vars_files:
+    - "env/values.yaml"
+  roles:
+    - { role: floating-ips, tags: floating-ips }
+
+- name: Prepare Kubernetes Tools and Configuration
+  hosts: allserver
+  gather_facts: yes
+  remote_user: k8s
+  become: yes
+  roles:
+    - { role: kube-prepare, tags: kube-prepare }
+
+- name: Install Master-Node
+  hosts: master
+  gather_facts: yes
+  remote_user: k8s
+  become: yes
+  vars_files:
+    - "env/values.yaml"
+  roles:
+    - { role: kube-master, tags: kube-master }
+    - { role: cleanup, tags: cleanup }
+
+- name: Join Worker-Nodes to Master
+  hosts: worker
+  gather_facts: yes
+  remote_user: k8s
+  become: yes
+  roles:
+    - { role: kube-worker, tags: kube-worker }
+
+- name: Metal LB and IP failover Installation
+  hosts: localhost
+  gather_facts: false
+  become: false
+  vars_files:
+    - "env/values.yaml"
+  roles:
+    - { role: metal-lb, tags: metal-lb }
+    - { role: ip-failover, tags: ip-failover }
+    - { role: local-cleanup, tags: local-cleanup }

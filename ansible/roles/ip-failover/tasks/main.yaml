@@ -1,0 +1,31 @@
+---
+- name: Create Namespace for FIP-Controller
+  shell: kubectl create namespace fip-controller
+
+- name: Copy yaml rbac FIP-Controller
+  copy:
+    src: ../files/fip-rbac.yaml
+    dest: /tmp/k8s-install/fip-rbac.yaml
+
+- name: Copy yaml deployment FIP-Controller
+  copy:
+    src: ../files/fip-deployment.yaml
+    dest: /tmp/k8s-install/fip-deployment.yaml
+
+- name: Create Template for FIP-Controller
+  template:
+    src: configmap-secret.yaml.j2
+    dest: /tmp/k8s-install/configmap-secret.yaml
+
+- name: Add rbac for FIP-Controller
+  shell: kubectl apply -f /tmp/k8s-install/fip-rbac.yaml
+
+- name: Deploy FIP-Controller
+  shell: kubectl apply -f /tmp/k8s-install/fip-deployment.yaml
+
+- name: Configure FIP-Controller
+  shell: kubectl apply -f /tmp/k8s-install/configmap-secret.yaml
+
+
+
+

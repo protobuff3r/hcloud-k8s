@@ -1,0 +1,19 @@
+---
+- name: Clean K8s yaml files
+  file:
+    state: absent
+    path: /tmp/k8s-install/
+
+- name: Remove the python packages for k8s ansible module
+  pip:
+    name:
+      - wheel
+      - openshift
+    state: absent
+
+- name: Remove the package "python-pip"
+  apt:
+    name:
+      - python-pip
+      - python-setuptools
+    state: absent

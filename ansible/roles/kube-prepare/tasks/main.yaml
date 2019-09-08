@@ -1,0 +1,30 @@
+---
+- name: Copy cloud config provider flag for kubeadm
+  copy:
+    src: ../files/20-hetzner-cloud.conf
+    dest: /etc/systemd/system/kubelet.service.d/20-hetzner-cloud.conf
+
+- name: Create Docker Service directory if it does not exist
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+
+- name: Copy docker config for systemd
+  copy:
+    src: ../files/00-cgroup-systemd.conf
+    dest: /etc/systemd/system/docker.service.d/00-cgroup-systemd.conf
+
+- name: Reload system daemon
+  shell: systemctl daemon-reload
+
+- name: Insert/Update sysctl settings for traffic forwarding
+  blockinfile:
+    path: /etc/sysctl.conf
+    block: |
+      # Allow IP forwarding for kubernetes
+      net.bridge.bridge-nf-call-iptables = 1
+      net.ipv4.ip_forward = 1
+      net.ipv6.conf.default.forwarding = 1
+
+- name: Reload sysctl
+  shell: sysctl -p

@@ -1,0 +1,31 @@
+{
+  "api": {
+    "enabled": false
+  },
+  "logging": {
+    "level": "info",
+    "output": "stdout"
+  },
+  "servers": {
+    "IPv6-tcp-http": {
+      "bind": "[{{ floating_ipv6 }}]:80",
+      "protocol": "tcp",
+      "discovery": {
+        "kind": "static",
+        "static_list": [
+          "{{ floating_ipv4 }}:80"
+        ]
+      }
+    },
+    "IPv6-tcp-https": {
+      "bind": "[{{ floating_ipv6 }}]:443",
+      "protocol": "tcp",
+      "discovery": {
+        "kind": "static",
+        "static_list": [
+          "{{ floating_ipv4 }}:443"
+        ]
+      }
+    }
+  }
+}
