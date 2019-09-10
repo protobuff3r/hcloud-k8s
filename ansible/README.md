@@ -3,7 +3,6 @@
 ## Prerequirments edit the following files
   - set the IPs in the file "ansible/inventory" from "terraform/outputs.json" 
   - edit the Values in "ansible/env/values.yaml" from "terraform/outputs.json"
-  - edit roles/metal-lb/tasks/main.yaml
 
 ## Start Playbook
 ```bash
