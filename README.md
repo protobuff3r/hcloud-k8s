@@ -56,7 +56,7 @@ The Playbook execute Terraform and destroy the resources (Delete Instances, Floa
 
 ## Recommendations
   - Install Ingress to use wildcard DNS entry to the floating IPv4 (helm install --name ingress stable/nginx-ingress)
-  - Install Cert-Manager to autogenerate Let's Encrypt SSL Certificates for each subdomain service (https://docs.cert-manager.io/en/latest/tutorials/acme/quick-start/)
+  - Install Cert-Manager to autogenerate Let's Encrypt SSL Certificates for each subdomain service (Start with Step 2 https://docs.cert-manager.io/en/latest/tutorials/acme/quick-start/)
 
 ### Info MetalLB
 
