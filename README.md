@@ -10,8 +10,8 @@ Install a Kubernetes Cluster on Hetzner Cloud. The Playbook install a Master and
 
 ## Prerequirments edit the following files
   - create a HCloud Project in Hetzner Cloud Console
-  - create a API Token and set in ansible/env/values.yaml
-  - edit the values in "ansible/env/values.yaml"
+  - create a API Token and set in "env/values.yaml"
+  - edit the values in "env/values.yaml"
 
 ## Create Infrastructure Ansible Playbook Terrafom Module
 ```bash
