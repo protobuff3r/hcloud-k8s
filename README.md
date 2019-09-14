@@ -26,6 +26,11 @@ ansible-playbook k8s-install.yaml -i env/inventory
 ```
 Install Kubernetes, Floating IPs, Gobetween for IP translation, Master, Workers, Metal Load Balancer, FIP Controller for IP failover.
 
+Test on your local machine if all works after few minutes:
+```bash
+kubectl get pods --all-namespaces
+```
+
 ## Delete Kubernetes and destroy Infrastructure Ansible Playbook Terrafom Module
 ```bash
 ansible-playbook destroy-infrastructure.yaml
