@@ -1,0 +1,14 @@
+# Hetzner HCloud Project API Token
+hetzner_token: XXXXxxxxxXXxxx...
+# Public SSH Keys to connect instances with ssh
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3XXXXXxxxx== gammpamm@example.com
+# Datacenter Name
+datacenter: fsn1
+# Master and Worker Server Types
+master_servertype: cx21-ceph
+worker_servertype: cx31-ceph
+# if you change Kubernetes Version to other Minor, Major Version, you need to modify roles/kube-master/files/cilium.yaml
+kubenetes_version: v1.15.3
+# Local Kubectl Config directory
+local_kube_context_path: /home/<YOUR-USER>/.kube

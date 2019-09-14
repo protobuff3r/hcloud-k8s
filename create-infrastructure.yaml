@@ -1,0 +1,9 @@
+---
+- name: Create Infrastructure with Terraform
+  hosts: localhost
+  gather_facts: false
+  become: false
+  vars_files:
+    - "env/values.yaml"
+  roles:
+    - { role: tf-infrastructure, tags: tf-infrastructure }

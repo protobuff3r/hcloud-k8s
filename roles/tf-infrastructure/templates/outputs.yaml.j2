@@ -1,0 +1,28 @@
+[master]
+{% for master in tf.outputs.master_ipv4.value %}
+{% for ip in master %}
+{{ ip }}
+{% endfor %}
+{% endfor %}
+
+[worker]
+{% for worker in tf.outputs.worker_ipv4.value %}
+{% for ip in worker %}
+{{ ip }}
+{% endfor %}
+{% endfor %}
+
+[allserver]
+{% for master in tf.outputs.master_ipv4.value %}
+{% for ip in master %}
+{{ ip }}
+{% endfor %}
+{% endfor %}
+{% for worker in tf.outputs.worker_ipv4.value %}
+{% for ip in worker %}
+{{ ip }}
+{% endfor %}
+{% endfor %}
+
+[localhost]
+127.0.0.1  ansible_connection=local

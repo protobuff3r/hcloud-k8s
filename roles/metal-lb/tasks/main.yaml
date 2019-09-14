@@ -1,0 +1,30 @@
+---
+- name: Create Directory K8s yaml files
+  file:
+    path: /tmp/k8s-install
+    state: directory
+
+- name: Copy yaml Tiller
+  copy:
+    src: "{{ playbook_dir }}/roles/metal-lb/files/tiller.yaml"
+    dest: /tmp/k8s-install/tiller.yaml
+
+- name: Config Tiller resources
+  shell: kubectl apply -f /tmp/k8s-install/tiller.yaml
+
+- name: Install Tiller with Helm
+  shell: helm init --service-account tiller --history-max 200 --wait
+
+- name: Create Namespace for Metal LB
+  shell: kubectl create namespace metallb
+
+- name: Install Metal LB with Helm
+  shell: helm install --name metallb --namespace metallb stable/metallb
+
+- name: Create Template for Configuration Metal LB
+  template:
+    src: metallb.yaml.j2
+    dest: /tmp/k8s-install/metallb.yaml
+
+- name: Configure Metal LB
+  shell: kubectl apply -f /tmp/k8s-install/metallb.yaml

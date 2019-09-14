@@ -1,9 +1,0 @@
-floating_ipv4: "159.XX.XXX.XX"
-# add 1 on the end of IPv6
-floating_ipv6: "2a01:XXX:XXXX:XX::1"
-hetzner_token: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-hetzner_network: kubernetes
-# if you change Kubernetes Version to other Minor, Major Version, you need to modify roles/kube-master/files/cilium.yaml
-kubenetes_version: v1.15.3
-# change <your_user> to your local home and check if .kube folder exist and installed kubectl
-local_kube_context_path: /home/<your_user>/.kube

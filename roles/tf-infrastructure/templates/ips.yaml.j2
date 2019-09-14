@@ -1,0 +1,14 @@
+master_ips:
+{% for master in tf.outputs.master_ipv4.value %}
+{% for ip in master %}
+  - {{ ip }}
+{% endfor %}
+{% endfor %}
+worker_ips:
+{% for worker in tf.outputs.worker_ipv4.value %}
+{% for ip in worker %}
+  - {{ ip }}
+{% endfor %}
+{% endfor %}
+floating_ipv4: "{{ tf.outputs.floating_ipv4.value }}"
+floating_ipv6: "{{ tf.outputs.floating_ipv6.value }}1"

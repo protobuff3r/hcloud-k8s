@@ -1,0 +1,12 @@
+---
+- name: Destroy Infrastructure with Terraform
+  terraform:
+    project_path: "{{ playbook_dir }}/roles/tf-infrastructure/terraform"
+    force_init: true
+    state: absent
+    variables:
+      hcloud_token: "{{ hetzner_token }}"
+      datacenter: "{{ datacenter }}"
+      master_servertype: "{{ master_servertype }}"
+      worker_servertype: "{{ worker_servertype }}"
+  register: tf

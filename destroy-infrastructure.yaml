@@ -1,0 +1,9 @@
+---
+- name: Destroy Infrastructure with Terraform
+  hosts: localhost
+  gather_facts: false
+  become: false
+  vars_files:
+    - "env/values.yaml"
+  roles:
+    - { role: tf-destroy, tags: tf-destroy }

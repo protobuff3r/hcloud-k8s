@@ -1,0 +1,27 @@
+---
+- name: Create Cloud Config for Terraform
+  template:
+    src: cloud-config.yaml.j2
+    dest: "{{ playbook_dir }}/roles/tf-infrastructure/terraform/user-data/cloud-config.yaml"
+
+- name: Create Infrastructure with Terraform
+  terraform:
+    project_path: "{{ playbook_dir }}/roles/tf-infrastructure/terraform"
+    force_init: true
+    state: present
+    variables:
+      hcloud_token: "{{ hetzner_token }}"
+      datacenter: "{{ datacenter }}"
+      master_servertype: "{{ master_servertype }}"
+      worker_servertype: "{{ worker_servertype }}"
+  register: tf
+
+- name: Create Infrastructure File
+  template:
+    src: outputs.yaml.j2
+    dest: "{{ playbook_dir }}/env/inventory"
+
+- name: Set Output Info to env/ips.yaml
+  template:
+    src: ips.yaml.j2
+    dest: "{{ playbook_dir }}/env/ips.yaml"

@@ -1,0 +1,5 @@
+user-data/cloud-config.yaml
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+outputs.json
