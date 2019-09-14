@@ -17,7 +17,7 @@ Install a Kubernetes Cluster on Hetzner Cloud. The Playbook install a Master and
 ```bash
 ansible-playbook create-infrastructure.yaml
 ```
-Waiting 5 Minutes, because Hetzner install the "roles/tf-infrastructure/terraform/user-data/cloud-config.yaml" (Docker, Kubelet, Kubeadm, Kubectl, SSH Keys)
+After creation is complete waiting 5 Minutes, because Hetzner install the "roles/tf-infrastructure/terraform/user-data/cloud-config.yaml" (Docker, Kubelet, Kubeadm, Kubectl, SSH Keys)
 The Playbook execute Terraform and apply the resources. The working directory is "roles/tf-infrastructure/terraform/"
 
 ## Install Kubernetes Ansible Playbook
