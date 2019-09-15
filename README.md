@@ -57,7 +57,6 @@ The Playbook execute Terraform and destroy the resources (Delete Instances, Floa
 ### Recommendations for Microservices
   - Install Knative (PaaS Serverless) with Gloo (feature-rich alternative Ingress Controller) - https://medium.com/solo-io/knative-kubernetes-native-paas-with-serverless-d06ddfca05a3
   - Install a Service-Mesh - Linkerd https://linkerd.io/ or Istio https://istio.io/)
-  - Install a Cert Manager - https://docs.cert-manager.io/en/latest/tutorials/acme/quick-start
 
 ### Info MetalLB
 
