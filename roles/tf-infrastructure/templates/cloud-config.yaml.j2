@@ -22,7 +22,8 @@ runcmd:
   - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
   - add-apt-repository "deb http://packages.cloud.google.com/apt/ kubernetes-xenial main"
   - apt update
-  - apt install -y docker-ce kubelet kubeadm kubectl
+  - swapoff -a
+  - apt install -y docker-ce kubelet={{ kubenetes_version }}-00 kubeadm={{ kubenetes_version }}-00 kubectl={{ kubenetes_version }}-00
   - apt-mark hold docker-ce kubelet kubeadm kubectl
   - usermod -aG docker k8s
   - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config

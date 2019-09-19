@@ -6,7 +6,7 @@ Install a Kubernetes Cluster on Hetzner Cloud. The Playbook install a Master and
   - Ansible v2.8.5 (https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
   - Terraform v0.12.6 (https://github.com/tfutils/tfenv#installation)
   - Helm v2.14.3 (https://github.com/helm/helm#install)
-  - Kubectl v1.15.3 (https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+  - Kubectl v1.15.4 (https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
 ## Prerequirments edit the following files
   - create a HCloud Project in Hetzner Cloud Console
