@@ -54,10 +54,6 @@ The Playbook execute Terraform and destroy the resources (Delete Instances, Floa
   - No pod policy - privileged pods are allowed
   - Instances/Cluster not secured by a VPC (also have public IPs)
 
-### Recommendations for Microservices
-  - Install Knative (PaaS Serverless) with Gloo (feature-rich alternative Ingress Controller) - https://medium.com/solo-io/knative-kubernetes-native-paas-with-serverless-d06ddfca05a3
-  - Install a Service-Mesh - Linkerd https://linkerd.io/ or Istio https://istio.io/)
-
 ### Info MetalLB
 
 Hetzner Cloud does not support LoadBalancer as a Service (yet). Thus [MetalLB](https://metallb.universe.tf/) will be installed to make the LoadBalancer service type available in the cluster.
