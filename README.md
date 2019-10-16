@@ -2,11 +2,13 @@
 
 Install a Kubernetes Cluster on Hetzner Cloud. The Playbook install a Master and Workers with Private Networking inclusive Cloud Controller Manager for Hetzner Cloud, Load Balancer and Failover IPs.
 
+Tested Versions Kubernetes v1.15.5 and v1.16.2
+
 ## Local Requirements
   - Ansible v2.8.5 (https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
-  - Terraform v0.12.6 (https://github.com/tfutils/tfenv#installation)
+  - Terraform v0.12.10 (https://github.com/tfutils/tfenv#installation)
   - Helm v2.14.3 (https://github.com/helm/helm#install)
-  - Kubectl v1.15.4 (https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+  - Kubectl v1.16.2 (https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
 ## Prerequirments edit the following files
   - create a HCloud Project in Hetzner Cloud Console
@@ -24,11 +26,16 @@ The Playbook execute Terraform and apply the resources. The working directory is
 ```bash
 ansible-playbook k8s-install.yaml -i env/inventory
 ```
-Install Kubernetes, Floating IPs, Gobetween for IP translation, Master, Workers, Metal Load Balancer, FIP Controller for IP failover.
+Install Kubernetes, Master, Workers, Metal Load Balancer, FIP Controller for IP failover.
 
 Test on your local machine if all works after few minutes:
 ```bash
 kubectl get pods --all-namespaces
+```
+
+## Get Kube Config from Master Node
+```bash
+ansible-playbook get-kubeconfig.yaml -i env/inventory
 ```
 
 ## Delete Kubernetes and destroy Infrastructure Ansible Playbook Terrafom Module
@@ -39,7 +46,6 @@ The Playbook execute Terraform and destroy the resources (Delete Instances, Floa
 
 ## What's happening
   - Create Infrastructure on Hetzner Cloud with Terraform (roles/tf-infrastructure/terraform/)
-  - Configure Floating IPs and install Gobetween for IPv6 to IPv4 translation 
   - Prepare Kubernetes Tools and Configuration on all Servers
   - Install Master-Node
   - Join Worker-Nodes to Master

@@ -14,6 +14,24 @@
 
 - name: Install Tiller with Helm
   shell: helm init --service-account tiller --history-max 200 --wait
+  when: not version_1_16
+
+# helm init --service-account tiller --output yaml | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' | sed 's@  replicas: 1@  replicas: 1\n  selector: {"matchLabels": {"app": "helm", "name": "tiller"}}@' | kubectl apply -f -
+
+# fix install tiller
+- name: Copy yaml Tiller Installer
+  copy:
+    src: "{{ playbook_dir }}/roles/metal-lb/files/tiller-installfix.yaml"
+    dest: /tmp/k8s-install/tiller-installfix.yaml
+  when: version_1_16
+
+- name: Install Tiller with Helm
+  shell: kubectl create -f /tmp/k8s-install/tiller-installfix.yaml
+  when: version_1_16
+
+- name: Wait Tiller available
+  shell: kubectl wait --for=condition=available --timeout=600s deployment/tiller-deploy -n kube-system
+  when: version_1_16
 
 - name: Create Namespace for Metal LB
   shell: kubectl create namespace metallb
@@ -26,5 +44,5 @@
     src: metallb.yaml.j2
     dest: /tmp/k8s-install/metallb.yaml
 
-- name: Configure Metal LB
+- name: Configure Metal LB - annotation metallb.universe.tf/allow-shared-ip
   shell: kubectl apply -f /tmp/k8s-install/metallb.yaml

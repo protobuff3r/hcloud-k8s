@@ -8,7 +8,10 @@ datacenter: fsn1
 # Master and Worker Server Types
 master_servertype: cx21-ceph
 worker_servertype: cx31-ceph
-# if you change Kubernetes Version to other Minor, Major Version, you need to modify roles/kube-master/files/cilium.yaml
-kubenetes_version: 1.15.4
-# Local Kubectl Config directory
+# Count Worker Nodes
+worker_count: 3
+# Count Pool IPs for Metal Load Balancer
+floatip_count: 4
+# Tested 1.15.5 and 1.16.2
+kubenetes_version: 1.16.2
 local_kube_context_path: /home/<YOUR-USER>/.kube

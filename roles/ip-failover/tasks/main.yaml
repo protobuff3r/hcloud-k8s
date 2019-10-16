@@ -1,4 +1,9 @@
 ---
+- name: Create Directory K8s yaml files
+  file:
+    path: /tmp/k8s-install
+    state: directory
+    
 - name: Create Namespace for FIP-Controller
   shell: kubectl create namespace fip-controller
 
@@ -7,10 +12,17 @@
     src: "{{ playbook_dir }}/roles/ip-failover/files/fip-rbac.yaml"
     dest: /tmp/k8s-install/fip-rbac.yaml
 
-- name: Copy yaml deployment FIP-Controller
+- name: Copy yaml deployment FIP-Controller k8s < 1.16
   copy:
     src: "{{ playbook_dir }}/roles/ip-failover/files/fip-deployment.yaml"
     dest: /tmp/k8s-install/fip-deployment.yaml
+  when: not version_1_16
+
+- name: Copy yaml deployment FIP-Controller k8s > 1.15
+  copy:
+    src: "{{ playbook_dir }}/roles/ip-failover/files/fip-deployment_v1.16.yaml"
+    dest: /tmp/k8s-install/fip-deployment.yaml
+  when: version_1_16
 
 - name: Create Template for FIP-Controller
   template:
@@ -18,14 +30,10 @@
     dest: /tmp/k8s-install/configmap-secret.yaml
 
 - name: Add rbac for FIP-Controller
-  shell: kubectl apply -f /tmp/k8s-install/fip-rbac.yaml
+  shell: kubectl create -f /tmp/k8s-install/fip-rbac.yaml
 
 - name: Deploy FIP-Controller
-  shell: kubectl apply -f /tmp/k8s-install/fip-deployment.yaml
+  shell: kubectl create -f /tmp/k8s-install/fip-deployment.yaml
 
 - name: Configure FIP-Controller
-  shell: kubectl apply -f /tmp/k8s-install/configmap-secret.yaml
-
-
-
-
+  shell: kubectl create -f /tmp/k8s-install/configmap-secret.yaml

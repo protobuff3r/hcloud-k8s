@@ -1,0 +1,10 @@
+---
+- name: Copy Kube-Config to Local Device
+  slurp:
+    src: /etc/kubernetes/admin.conf
+  register: kubeconf
+
+- name: Save kubeconf to local kubectl
+  local_action: copy content="{{ kubeconf['content'] | b64decode }}" dest="{{ local_kube_context_path }}/config"
+  vars:
+     ansible_become: no

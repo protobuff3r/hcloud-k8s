@@ -19,3 +19,13 @@ variable "worker_servertype" {
   type        = string
   description = "Worker Server Type - Replaced by Ansible Playbook on run"
 }
+
+variable "worker_count" {
+  type        = number
+  description = "Worker count - Replaced by Ansible Playbook on run"
+}
+
+variable "floatip_count" {
+  type        = number
+  description = "Floating IPs count - Replaced by Ansible Playbook on run"
+}

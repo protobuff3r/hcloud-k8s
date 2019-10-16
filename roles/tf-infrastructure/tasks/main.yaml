@@ -14,6 +14,8 @@
       datacenter: "{{ datacenter }}"
       master_servertype: "{{ master_servertype }}"
       worker_servertype: "{{ worker_servertype }}"
+      worker_count: "{{ worker_count }}"
+      floatip_count: "{{ floatip_count }}"
   register: tf
 
 - name: Create Infrastructure File

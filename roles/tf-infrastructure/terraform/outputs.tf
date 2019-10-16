@@ -10,10 +10,5 @@ output "worker_ipv4" {
 
 output "floating_ipv4" {
   description = "Map of floating ipv4"
-  value       = "${hcloud_floating_ip.lbipv4.ip_address}"
-}
-
-output "floating_ipv6" {
-  description = "Map of floating ipv6"
-  value       = "${hcloud_floating_ip.lbipv6.ip_address}"
+  value       = ["${hcloud_floating_ip.lbipv4.*.ip_address}"]
 }

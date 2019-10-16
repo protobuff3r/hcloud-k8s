@@ -23,7 +23,7 @@ resource "hcloud_network_subnet" "worker" {
 }
 
 resource "hcloud_server" "master" {
-  count = 1
+  count       = 1
   name        = "master${count.index}"
   image       = "ubuntu-18.04"
   server_type = "${var.master_servertype}"
@@ -40,7 +40,7 @@ resource "hcloud_server_network" "master_network" {
 
 # Worker
 resource "hcloud_server" "worker" {
-  count = 3
+  count       = "${var.worker_count}"
   name        = "worker${count.index}"
   image       = "ubuntu-18.04"
   server_type = "${var.worker_servertype}"
@@ -56,11 +56,7 @@ resource "hcloud_server_network" "worker_network" {
 }
 
 resource "hcloud_floating_ip" "lbipv4" {
-  type = "ipv4"
-  home_location = "${var.datacenter}"
-}
-
-resource "hcloud_floating_ip" "lbipv6" {
-  type = "ipv6"
+  count         = "${var.floatip_count}"
+  type          = "ipv4"
   home_location = "${var.datacenter}"
 }

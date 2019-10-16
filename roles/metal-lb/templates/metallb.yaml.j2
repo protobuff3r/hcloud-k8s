@@ -9,4 +9,6 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - {{ floating_ipv4 }}/32
+{% for ip in floating_ipv4 %}
+      - {{ ip }}/32
+{% endfor %}

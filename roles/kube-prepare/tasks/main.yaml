@@ -1,4 +1,20 @@
 ---
+- name: Check if server ready
+  stat:
+    path: /opt/ready.txt
+  register: ready
+- fail:
+    msg: "Server is not ready!!!"
+  when: not ready.stat.exists
+
+- name: Configure floating IPs
+  template:
+    src: 60-floating-ip.j2
+    dest: /etc/network/interfaces.d/60-floating-ip.cfg
+
+- name: Restart Networking
+  shell: systemctl restart networking.service
+  
 - name: Copy cloud config provider flag for kubeadm
   copy:
     src: "{{ playbook_dir }}/roles/kube-prepare/files/20-hetzner-cloud.conf"
@@ -24,7 +40,15 @@
       # Allow IP forwarding for kubernetes
       net.bridge.bridge-nf-call-iptables = 1
       net.ipv4.ip_forward = 1
-      net.ipv6.conf.default.forwarding = 1
 
 - name: Reload sysctl
   shell: sysctl -p
+
+- name: Auto Mount BPF filesystem for cilium network plugin
+  blockinfile:
+    path: /etc/fstab
+    block: |
+      bpffs                      /sys/fs/bpf             bpf     defaults 0 0
+
+- name: Mount BPF filesystem for cilium network plugin
+  shell: mount /sys/fs/bpf
