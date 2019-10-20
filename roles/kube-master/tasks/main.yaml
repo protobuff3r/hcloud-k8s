@@ -47,9 +47,6 @@
 - name: Deploy Cilium Network Plugin
   shell: kubectl create -f /tmp/k8s-install/cilium.yaml
 
-- name: Taint to unitilazed nodes
-  shell: kubectl taint nodes --all node-role.kubernetes.io/master-
-  
 - name: Create a CSI Hetzner Secret object
   shell: kubectl -n kube-system create secret generic hcloud-csi --from-literal=network=kubernetes --from-literal=token="{{ hetzner_token }}"
 
