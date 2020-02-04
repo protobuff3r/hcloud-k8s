@@ -37,7 +37,7 @@
   shell: kubectl create namespace metallb
 
 - name: Install Metal LB with Helm
-  shell: helm install --name metallb --namespace metallb stable/metallb
+  shell: helm install metallb --namespace metallb stable/metallb
 
 - name: Create Template for Configuration Metal LB
   template:
