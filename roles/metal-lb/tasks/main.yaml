@@ -35,6 +35,9 @@
 
 - name: Create Namespace for Metal LB
   shell: kubectl create namespace metallb
+  
+- name: Add Helm Repo
+  shell: helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 
 - name: Install Metal LB with Helm
   shell: helm install metallb --namespace metallb stable/metallb
